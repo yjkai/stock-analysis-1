@@ -11,7 +11,7 @@ from typing import Dict, List, Any, Tuple, Optional
 from scipy.stats import norm
 from dotenv import load_dotenv
 
-# 載入環境變數
+# 載入環境變數（僅在本地開發時使用）
 load_dotenv()
 
 # ======== 產業碼 ↔︎ 中文名稱完整對照 ========
@@ -56,9 +56,10 @@ INDUSTRY_MAP: dict[str, str] = {
 # ============================================
 
 # ========= 設置 OpenAI API Key =========
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# 優先使用 Streamlit Secrets，如果沒有則使用環境變數
+openai.api_key = st.secrets.get("openai.api_key") or os.getenv("OPENAI_API_KEY")
 if not openai.api_key:
-    st.error("請設置 OPENAI_API_KEY 環境變數")
+    st.error("請設置 OpenAI API Key。在 Streamlit Cloud 上請在 Secrets 中設置 openai.api_key，或在本地開發時設置 OPENAI_API_KEY 環境變數")
     st.stop()
 # =======================================
 
