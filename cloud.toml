@@ -1,0 +1,7 @@
+[network]
+allowedDomains = [
+  "query1.finance.yahoo.com",
+  "download.finance.yahoo.com",
+  "openapi.twse.com.tw",
+  "api.openai.com"
+]
